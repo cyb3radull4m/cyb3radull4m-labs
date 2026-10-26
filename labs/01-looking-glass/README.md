@@ -8,7 +8,7 @@
 | **Difficulty** | ★☆☆☆☆ (intro) |
 | **Est. time** | 30–60 min |
 | **Techniques** | PHP type juggling (MD5 magic hashes), command injection, blacklist bypass |
-| **Goal** | Authentication bypass → authenticated RCE → read `FLAG{...}` |
+| **Goal** | Authentication bypass → authenticated RCE → capture **FLAG1** (access) + **FLAG2** (proof via RCE) |
 
 ## Run it
 
@@ -24,12 +24,12 @@ docker compose down
 
 ## Your mission
 
-You have the **full source** in `src/`. Read it, find the chain, and prove RCE by retrieving the flag.
+You have the **full source** in `src/`. Read it, find the chain, and prove RCE by capturing both flags.
 No brute force, no external wordlists — this is white-box.
 
 1. Get in **without the real password**.
 2. From the operator console, get **command execution** on the server.
-3. Read `/flag.txt`.
+3. Read `/proof.txt`.
 
 Write your own `exploit.py` that does all of it in one run. Compare with the reference in `exploit/`
 only after you've tried.

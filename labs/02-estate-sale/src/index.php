@@ -10,12 +10,10 @@ if (isset($_COOKIE['remember'])) {
     }
 }
 
-// Flavour login (not the interesting part).
 $error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (($_POST['username'] ?? '') === 'bidder' && ($_POST['password'] ?? '') === 'auction2026') {
         $_SESSION['user'] = 'bidder';
-        // Issue a 30-day remember cookie.
         setcookie('remember', base64_encode(serialize(new RememberToken('bidder'))), time() + 2592000);
         header('Location: index.php');
         exit;
@@ -24,6 +22,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $user = $_SESSION['user'] ?? null;
+// Access flag — shown to any authenticated member. Value lives outside the webroot.
+$access_flag = $user ? @file_get_contents('/opt/flags/access.txt') : '';
 ?>
 <!doctype html>
 <html lang="en">
@@ -31,7 +31,7 @@ $user = $_SESSION['user'] ?? null;
 <title>Estate Sale — Online Auctions</title>
 <style>
   body{font-family:system-ui,sans-serif;background:#faf7f2;color:#2b2622;margin:0;padding:40px;display:grid;place-items:center}
-  .card{background:#fff;border:1px solid #e4ddd2;border-radius:12px;padding:30px 34px;width:360px;box-shadow:0 6px 24px rgba(0,0,0,.06)}
+  .card{background:#fff;border:1px solid #e4ddd2;border-radius:12px;padding:30px 34px;width:380px;box-shadow:0 6px 24px rgba(0,0,0,.06)}
   h1{font-size:1.25rem;margin:0 0 4px}
   p.sub{color:#8a8178;margin:0 0 18px;font-size:.85rem}
   label{display:block;font-size:.8rem;color:#8a8178;margin:12px 0 4px}
@@ -39,13 +39,14 @@ $user = $_SESSION['user'] ?? null;
   button{margin-top:18px;width:100%;padding:10px;border:0;border-radius:6px;background:#9a6b3f;color:#fff;font-weight:600;cursor:pointer}
   .err{color:#c0392b;font-size:.82rem;margin-top:12px}
   .hi{color:#5c7a45;font-weight:600}
+  .flag{background:#f3f7ee;border:1px solid #5c7a4555;border-radius:6px;padding:10px 12px;margin-top:12px;color:#466135;font-family:ui-monospace,monospace;font-size:.82rem}
 </style>
 <div class="card">
   <h1>Estate Sale</h1>
   <p class="sub">Members-only auction house</p>
   <?php if ($user): ?>
     <p>Welcome back, <span class="hi"><?= htmlspecialchars($user) ?></span>.</p>
-    <p class="sub">Today's lots are being appraised. Check back soon.</p>
+    <div class="flag">member area unlocked — <?= htmlspecialchars(trim($access_flag)) ?></div>
     <p><a href="index.php?logout=1">sign out</a></p>
     <?php if (isset($_GET['logout'])) { session_destroy(); setcookie('remember','',time()-1); echo '<meta http-equiv="refresh" content="0;url=index.php">'; } ?>
   <?php else: ?>

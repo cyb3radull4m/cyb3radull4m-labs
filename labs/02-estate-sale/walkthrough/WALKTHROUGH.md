@@ -1,6 +1,8 @@
 # Walkthrough — Estate Sale  (SPOILERS)
 
 **Chain:** unauthenticated PHP object injection → `CacheWriter` POP gadget → arbitrary file write →
+
+> Two flags — **FLAG1 (access):** forge a `RememberToken` to impersonate a member — the dashboard shows it. **FLAG2 (proof):** the `CacheWriter` POP gadget drops a webshell for RCE (`/proof.txt`).
 webshell → RCE → flag.
 
 ## 1. The sink
@@ -43,8 +45,8 @@ object; at request end `__destruct()` writes `sh3ll.php`. The container's webroo
 
 ## 4. RCE
 ```
-GET /sh3ll.php?c=cat%20/flag.txt
-→ FLAG{unserialize_is_a_cod3_execution_sink}
+GET /sh3ll.php?c=cat%20/proof.txt
+→ FLAG2{pop_gadget_wrote_a_webshell}
 ```
 
 `exploit/exploit.py` builds the serialized payload programmatically (so the string lengths are always

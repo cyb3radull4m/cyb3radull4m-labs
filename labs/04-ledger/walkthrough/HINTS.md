@@ -29,5 +29,5 @@ have the secret you can forge a validly-signed pickle the server will execute.
 
 A class with `__reduce__` returning `(os.system, ("<cmd>",))` runs your command on load. Base64 it,
 HMAC-sign it with the leaked secret, send it as `prefs`. Have it write the flag somewhere you can read,
-e.g. `cat /flag.txt > /app/static/leak.txt`, then GET `/static/leak.txt`.
+e.g. `cat /proof.txt > /app/static/leak.txt`, then GET `/static/leak.txt`.
 </details>

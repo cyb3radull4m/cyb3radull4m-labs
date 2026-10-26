@@ -5,8 +5,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY src/ ./
 RUN mkdir -p /app/static
 
-# Objective: achieve RCE and read this flag.
-RUN echo 'FLAG{bl1nd_sqli_leaked_the_pickle_key}' > /flag.txt && chmod 644 /flag.txt
+# Proof flag reachable only via RCE. (FLAG1 lives in the database; see app.py.)
+RUN echo 'FLAG2{pickle_deserialization_rce}' > /proof.txt && chmod 644 /proof.txt
 
 EXPOSE 80
 CMD ["python", "app.py"]

@@ -1,11 +1,11 @@
 FROM php:8.2-apache
-
-# ping is needed by the looking-glass probe
 RUN apt-get update && apt-get install -y --no-install-recommends iputils-ping
-
 COPY src/ /var/www/html/
 
-# The objective: retrieve this flag via RCE. (Value is NOT in the source tree.)
-RUN echo 'FLAG{typ3_juggl1ng_into_a_l34ky_p1pe}' > /flag.txt && chmod 644 /flag.txt
+# Two flags, OSWE-style: access (auth bypass) and proof (RCE). Values are NOT in the source tree.
+RUN mkdir -p /opt/flags \
+ && echo 'FLAG1{access_the_console_with_a_magic_hash}' > /opt/flags/access.txt \
+ && echo 'FLAG2{command_injection_popped_a_shell}'    > /proof.txt \
+ && chmod 644 /opt/flags/access.txt /proof.txt
 
 EXPOSE 80

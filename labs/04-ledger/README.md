@@ -8,7 +8,7 @@
 | **Difficulty** | ★★★★☆ |
 | **Est. time** | 2–3 h |
 | **Techniques** | Blind (boolean) SQL injection, scripted oracle, insecure deserialization (pickle) |
-| **Goal** | Exfiltrate the signing secret → forge a pickle → RCE → read `FLAG{...}` |
+| **Goal** | Exfiltrate the signing secret → forge a pickle → RCE → capture **FLAG1** (access) + **FLAG2** (proof via RCE) |
 
 ## Run it
 ```bash
@@ -21,7 +21,7 @@ Full source in `src/`. The account-status API gives away more than a yes/no if y
 
 1. Find the injection and realise it's **blind** — you'll need to script an oracle.
 2. Exfiltrate the server's signing secret.
-3. Use it to reach the deserialization sink and get RCE. Read `/flag.txt`.
+3. Use it to reach the deserialization sink and get RCE. Read `/proof.txt`.
 
 This is the scripting-heavy lab. Write your own oracle before reading `exploit/`.
 

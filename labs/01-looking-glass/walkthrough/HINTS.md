@@ -29,6 +29,6 @@ characters the filter removes before the command runs. Which common shell metach
 
 <details><summary>Hint 5 — the injection</summary>
 
-`;`, `&` and the backtick are stripped. The pipe `|` is not. So `127.0.0.1 | cat /flag.txt` runs your
-command after the ping. The flag is at `/flag.txt`.
+`;`, `&` and the backtick are stripped. The pipe `|` is not. So `127.0.0.1 | cat /proof.txt` runs your
+command after the ping. The flag is at `/proof.txt`.
 </details>

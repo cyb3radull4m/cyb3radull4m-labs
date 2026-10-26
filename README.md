@@ -31,8 +31,8 @@ Every lab folder contains:
 | `walkthrough/WALKTHROUGH.md` | the full methodology + solution (spoilers)                 |
 | `exploit/exploit.py`  | the reference one-click auth-bypass → RCE script                  |
 
-**Proof of success:** each app holds a `FLAG{...}` reachable only by achieving RCE. Your exploit should
-retrieve it automatically.
+**Proof of success:** every lab is **two-flag**, OSWE-style — **FLAG1** for the access / auth-bypass
+stage and **FLAG2** for remote code execution. Your exploit should retrieve both automatically.
 
 ## Verify every lab works
 
