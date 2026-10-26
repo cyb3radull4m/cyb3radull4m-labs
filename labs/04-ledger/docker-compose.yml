@@ -1,0 +1,6 @@
+services:
+  ledger:
+    build: .
+    ports:
+      - "8084:80"
+    container_name: lab04-ledger

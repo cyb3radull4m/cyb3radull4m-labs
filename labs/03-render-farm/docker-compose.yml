@@ -1,0 +1,6 @@
+services:
+  render-farm:
+    build: .
+    ports:
+      - "8083:80"
+    container_name: lab03-render-farm

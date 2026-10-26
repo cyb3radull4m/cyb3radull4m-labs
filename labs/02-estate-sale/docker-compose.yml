@@ -1,0 +1,6 @@
+services:
+  estate-sale:
+    build: .
+    ports:
+      - "8082:80"
+    container_name: lab02-estate-sale
