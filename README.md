@@ -34,6 +34,17 @@ Every lab folder contains:
 **Proof of success:** each app holds a `FLAG{...}` reachable only by achieving RCE. Your exploit should
 retrieve it automatically.
 
+## Verify every lab works
+
+Run the whole track end to end — build each lab, run its reference exploit, confirm the flag:
+
+```bash
+./verify.sh                 # all labs
+./verify.sh 04-ledger       # just one
+```
+
+Exit code 0 means every lab produced its `FLAG{...}`. See `FLAGS.md` for the answer key.
+
 ## The track
 
 See `CURRICULUM.md` for all labs, the technique each one teaches, and the difficulty order.
