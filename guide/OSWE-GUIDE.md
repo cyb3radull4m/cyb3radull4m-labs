@@ -7,10 +7,16 @@
 
 ## 1. Your story
 
-> 📝 **[ PLACEHOLDER — YOUR STORY ]**
-> _When you passed, your background going in, how long you prepped, and the one thing that made the
-> biggest difference. 3–4 sentences. Readers calibrate the whole guide against this, so be concrete
-> and honest._
+> _Draft from my own words — edit freely._
+
+I passed the OffSec Web Expert (OSWE) exam in October 2026. The format is brutal in the best way:
+48 hours of white-box source-code review, chaining vulnerabilities and writing full exploit scripts,
+then another 24 hours to write the report. It pushed me harder than anything I'd done so far, and I
+genuinely enjoyed the course. I set out to earn it alongside my brother Jeremiah Kolawole before the
+year ended — we had moments where we almost gave up, but we kept pushing, and we made it together.
+
+<!-- Add a line on your background going in (OSCP/OSEP already held, dev/scripting experience) and the
+     one thing that made the biggest difference, so readers can calibrate. -->
 
 ---
 
